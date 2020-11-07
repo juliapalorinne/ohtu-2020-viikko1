@@ -7,11 +7,10 @@ public class Varasto {
     private double saldo;     // paljonko varastossa on nyt, >= 0
 
     // --- konstruktorit: ---
-    public Varasto(double tilavuus) {  // tilavuus on annettava
+    public Varasto(final double tilavuus) {  // tilavuus on annettava
         if (tilavuus > 0.0) {
             this.tilavuus = tilavuus;
-        } else // virheellinen, nollataan
-        {
+        } else { // virheellinen, nollataan
             this.tilavuus = 0.0;  // => käyttökelvoton varasto
         }
         saldo = 0;     // oletus: varasto on tyhjä
@@ -20,14 +19,12 @@ public class Varasto {
     public Varasto(double tilavuus, double alkuSaldo) { // kuormitetaan
         if (tilavuus > 0.0) {
             this.tilavuus = tilavuus;
-        } else // virheellinen, nollataan
-        {
+        } else { // virheellinen, nollataan
             this.tilavuus = 0.0;  // => käyttökelvoton varasto
         }
         if (alkuSaldo < 0.0) {
             this.saldo = 0.0;
-        } else if (alkuSaldo <= tilavuus) // mahtuu
-        {
+        } else if (alkuSaldo <= tilavuus) { // mahtuu
             this.saldo = alkuSaldo;
         } else {
             this.saldo = tilavuus;  // täyteen ja ylimäärä hukkaan!
@@ -43,32 +40,29 @@ public class Varasto {
         return tilavuus;
     }
 
-    public double paljonkoMahtuu() {  // huom: ominaisuus voidaan myös laskea
-        return tilavuus - saldo;        //  ei tarvita erillistä kenttää vielaTilaa tms.
+    public double paljonkoMahtuu() {  // huom: ominaisuus voidaan my�s laskea
+        return tilavuus - saldo;      //  ei tarvita erillist� kentt�� vielaTilaa tms.
     }
 
     // --- asettavat aksessorit eli setterit: ---
     public void lisaaVarastoon(double maara) {
-        if (maara < 0) // virhetilanteessa voidaan tehdä 
-        {
-            return;       // tällainen pikapoistuminenkin!
+        if (maara < 0) {  // virhetilanteessa voidaan tehd�
+            return;       // t�llainen pikapoistuminenkin!
         }
-        if (maara <= paljonkoMahtuu()) // omia aksessoreita voi kutsua
-        {
+        if (maara <= paljonkoMahtuu()) { // omia aksessoreita voi kutsua
             saldo = saldo + maara;          // ihan suoraan sellaisinaan
         } else {
-            saldo = tilavuus;  // täyteen ja ylimäärä hukkaan!
+            saldo = tilavuus;  // t�yteen ja ylim��r� hukkaan!
         }
     }
 
     public double otaVarastosta(double maara) {
-        if (maara < 0) // virhetilanteessa voidaan tehdä 
-        {
-            return 0.0;   // tällainen pikapoistuminenkin!
+        if (maara < 0) { // virhetilanteessa voidaan tehd�
+            return 0.0;   // t�llainen pikapoistuminenkin!
         }
-        if (maara > saldo) {          // annetaan mitä voidaan
+        if (maara > saldo) {          // annetaan mit� voidaan
             double kaikkiMitaVoidaan = saldo;
-            saldo = 0.0;               // ja tyhjäksi menee
+            saldo = 0.0;               // ja tyhj�ksi menee
             return kaikkiMitaVoidaan;  // poistutaan saman tien
         }
         // jos tänne päästään, kaikki pyydetty voidaan antaa
